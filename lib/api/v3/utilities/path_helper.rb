@@ -78,7 +78,6 @@ module API
           def self.resources(name,
                              except: [],
                              only: %i[index show create_form update_form schema])
-
             (Array(only) - Array(except)).each do |method|
               send(method, name)
             end
@@ -298,6 +297,8 @@ module API
           resources :project
 
           show :project_status
+
+          resources :company, except: %i[index create_form update_form schema]
 
           def self.projects_available_parents
             "#{projects}/available_parent_projects"
