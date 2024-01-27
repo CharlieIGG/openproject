@@ -79,7 +79,6 @@ require 'rack/test'
 #
 # assuming that every share is active, the owning users of child would be A and B.
 
-# rubocop:disable RSpec/IndexedLet
 RSpec.describe 'API v3 companies resource', content_type: :json do
   include Rack::Test::Methods
   include API::V3::Utilities::PathHelper

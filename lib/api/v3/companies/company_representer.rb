@@ -34,10 +34,23 @@ module API
     module Companies
       class CompanyRepresenter < ::API::Decorators::Single
         include API::Decorators::LinkedResource
-        include API::Decorators::DateProperty
-        include ::API::Caching::CachedRepresenter
-        include API::Decorators::FormattableProperty
-        extend ::API::V3::Utilities::CustomFieldInjector::RepresenterClass
+
+        self_link
+
+        links :owningUsers do
+          [{
+            href: api_v3_paths.user(represented.owner.id)
+          }]
+        end
+
+        # associated_resources :owning_users,
+        #                      as: :owningUsers,
+        #                      v3_path: :user,
+        #                      uncacheable_link: true,
+        #                      getter: associated_resource_default_getter(:owner, ::API::V3::Users::UserRepresenter)
+
+        property :id
+        property :name
 
         def _type
           'Company'

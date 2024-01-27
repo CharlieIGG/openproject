@@ -33,8 +33,8 @@ module API
         resources :companies do
           get &::API::V3::Utilities::Endpoints::SqlFallbackedIndex.new(model: Company,
                                                                        scope: -> {
-                                                                         Project
-                                                                           .includes(ProjectRepresenter.to_eager_load)
+                                                                         Company
+                                                                           .includes(CompanyRepresenter.to_eager_load)
                                                                        })
                                                                   .mount
 
@@ -43,11 +43,7 @@ module API
           end
           route_param :id do
             after_validation do
-              @company = if current_user.admin?
-                           Company.all
-                         else
-                           Company.visible(current_user)
-                         end.find(params[:id])
+              @company = Company.find(params[:id])
             end
 
             get &::API::V3::Utilities::Endpoints::Show.new(model: Company).mount
