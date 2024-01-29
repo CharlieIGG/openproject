@@ -37,17 +37,12 @@ module API
 
         self_link
 
-        links :owningUsers do
-          [{
-            href: api_v3_paths.user(represented.owner.id)
-          }]
-        end
-
-        # associated_resources :owning_users,
-        #                      as: :owningUsers,
-        #                      v3_path: :user,
-        #                      uncacheable_link: true,
-        #                      getter: associated_resource_default_getter(:owner, ::API::V3::Users::UserRepresenter)
+        associated_resources :owning_users,
+                             as: :owningUsers,
+                             v3_path: :user,
+                             uncacheable_link: true,
+                             getter: associated_resources_default_getter(:owning_users,
+                                                                         ::API::V3::Users::UserRepresenter)
 
         property :id
         property :name
