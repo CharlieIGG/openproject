@@ -27,6 +27,10 @@ class Company < ApplicationRecord
 
         companies_stack << share.parent
       end
+
+      if current_company.parent_shares.empty?
+        top_companies << current_company
+      end
     end
 
     top_companies
