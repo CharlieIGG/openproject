@@ -31,13 +31,6 @@ module API
     module Companies
       class CompaniesAPI < ::API::OpenProjectAPI
         resources :companies do
-          get &::API::V3::Utilities::Endpoints::SqlFallbackedIndex.new(model: Company,
-                                                                       scope: -> {
-                                                                         Company
-                                                                           .includes(CompanyRepresenter.to_eager_load)
-                                                                       })
-                                                                  .mount
-
           params do
             requires :id, desc: 'Company id'
           end
