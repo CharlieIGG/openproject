@@ -84,6 +84,9 @@ class User < Principal
 
   has_many :notification_settings, dependent: :destroy
 
+  has_many :owned_companies, class_name: 'Company', foreign_key: 'owner_id'
+  has_many :shares, through: :owned_companies
+
   # Users blocked via brute force prevention
   # use lambda here, so time is evaluated on each query
   scope :blocked, -> { create_blocked_scope(self, true) }

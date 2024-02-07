@@ -296,6 +296,10 @@ RSpec.describe API::V3::Utilities::PathHelper do
     end
   end
 
+  describe 'companies paths' do
+    it_behaves_like 'resource', :company, except: %i[index create_form update_form schema]
+  end
+
   describe 'project status paths' do
     it_behaves_like 'show', :project_status
   end
